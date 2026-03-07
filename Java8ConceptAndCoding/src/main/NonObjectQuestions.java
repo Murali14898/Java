@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.LinkedHashMap;
 
 public class NonObjectQuestions {
@@ -106,5 +109,138 @@ public class NonObjectQuestions {
 		System.out.println(ans.toString());
 		return this;
 	}
-	
+	//11. Count words in a sentence
+	public NonObjectQuestions countWordsInSentence(String sentence) {
+		long cnt = Arrays.stream(sentence.split(" ")).count();
+		System.out.println("Number of words are : "+cnt);
+		return this;
+	}
+	//12. Convert a list of string to single string
+	public NonObjectQuestions listOfStringToSingleString(List<String> list) {
+		String ans = list.stream().collect(Collectors.joining(" "));
+		return this;
+	}
+	//13. Find the frequency of characters in a String
+	public NonObjectQuestions frequencyOfCharacters(String s) {
+		Map<Character,Long> frequencyMap = s.chars().mapToObj(c->(char)c)
+				                    .collect(Collectors.groupingBy(ch->ch,Collectors.counting()));
+		System.out.println(frequencyMap.toString());
+		return this;
+	}
+	//14. Check if a list contains specific element
+	public <T> NonObjectQuestions checkElementInList(List<T> list,T ele) {
+		boolean check = list.stream().anyMatch(T->T.equals(ele));
+		String ans = check == true?"Element Available":"Element not Available";
+		System.out.println(ans);
+		return this;
+	}
+	//15. Faltten a list of lists
+	public  NonObjectQuestions flattenAlist(List<List<Integer>> list) {
+		int sum = list.stream().flatMap(ele->ele.stream())
+				                           .mapToInt(Integer::intValue)
+				                           .sum();
+		System.out.println(sum);
+		return this;
+	}
+	//16. Find max and in min in a list
+	public NonObjectQuestions findMaxAndMin(List<Integer> list) {
+		int max = list.stream().max(Comparator.comparingInt(Integer::intValue)).orElse(Integer.MAX_VALUE);
+		int min = list.stream().max(Comparator.comparingInt(Integer::intValue)).orElse(Integer.MIN_VALUE);
+		System.out.println(max+" is max value "+min+" is min value");
+		return this;
+	}
+	//17. Find number of Even and Odd in a list
+	public NonObjectQuestions countNoOfEvenOdd(List<Integer> list) {
+		long cntEven = list.stream().filter(num->num%2==0).count();
+		long cntOdd = list.stream().filter(num->num%2==0).count();
+		System.out.println(cntEven+" is even count "+cntOdd+" is odd count");
+		return this;
+	}
+	//18. Find most frequent element in a List
+	public NonObjectQuestions mostFrequentElement(List<Integer> list) {
+		int frequentEle = list.stream()
+				              .collect(Collectors.groupingBy(num->num,Collectors.counting()))
+				              .entrySet()
+				              .stream()
+				              .max(Map.Entry.comparingByValue())
+				              .map(Map.Entry::getKey)
+				              .orElse(Integer.MIN_VALUE);
+		System.out.println(frequentEle);
+		return this;
+	}
+	//19. Find all Palindromic String in a list
+	public NonObjectQuestions pallindromicStringList(List<String> list) {
+		List<String> pallindromicList = list.stream()
+				                            .filter(ele->ele.equals(new StringBuilder(ele).reverse().toString()))
+				                            .collect(Collectors.toList());
+		System.out.println(pallindromicList.toString());
+		return this;
+	}
+	//20. Find elements starts with specific character
+	public NonObjectQuestions wordStartsWithSpecificElement(List<String> list,Character c) {
+		List<String> ans = list.stream()
+				               .filter(ele->ele.startsWith(c.toString()))
+				               .collect(Collectors.toList());
+		System.out.println(ans.toString());
+		return this;
+	}
+	//21. Partitationing list into two groups
+	public NonObjectQuestions partitationList(List<Integer> list) {
+		Map<Boolean,List<Integer>> partitationMap = list.stream()
+				                                         .collect(Collectors.partitioningBy(num->num%2==0));
+		System.out.println("Even list "+partitationMap.get(true).toString());
+		System.out.println("Even list "+partitationMap.get(false).toString());
+		return this;
+	}
+	//22. Merge two List
+	public NonObjectQuestions mergerList(List<Integer> list,List<Integer> list1) {
+		List<Integer> ans = Stream.concat(list.stream(), list1.stream()).collect(Collectors.toList());
+		System.out.println(ans.toString());
+		return this;
+	}
+	//23. Convert a map to List of Keys and Values
+	public NonObjectQuestions convertMaptoListOfKeysValues(Map<String,Integer> map) {
+		List<String> keysList = map.keySet().stream().collect(Collectors.toList());
+		List<Integer> valueList = map.values().stream().collect(Collectors.toList());
+		System.out.println(keysList.toString()+" .... "+valueList.toString());
+		return this;
+	}
+	//24. Find Average of numbers
+	public NonObjectQuestions averageOfListNumbers(List<Integer> list) {
+		double average = list.stream().mapToInt(Integer::intValue)
+				                   .average()
+				                   .orElse(0);
+		System.out.println("Average is "+average);
+		return this;
+	}
+	//25. Find PrimeNumbers in a List
+	public NonObjectQuestions primeNumbersInAList(List<Integer> list) {
+		List<Integer> primeList = list.stream()
+		                              .filter(PrimeNumber::isPrime)
+		                              .collect(Collectors.toList());
+		System.out.println(primeList.toString());
+		return this;
+		                      
+	}
+	//26. Remove Null value from a list
+	public <T> NonObjectQuestions removeNullValueFromList(List<T> list) {
+		   List<T> ans = list.stream()
+				             .filter(Objects::nonNull)
+				             .collect(Collectors.toList());
+		   System.out.println(ans.toString());
+		   return this;
+	}
+	//27. Count vowels and consonant in a string
+	public NonObjectQuestions countVowelAndConsonants(String s) {
+		Set<Character> set = Set.of('a','e','i','o','u','A','E','I','O','U') ;
+		long vowelCnt = s.chars().mapToObj(c->(char)c)
+				                .filter(ele->set.contains(ele))
+				                .count();
+		long consonantCnt = s.chars().mapToObj(c->(char)c)
+				                     .filter(ele->!set.contains(ele))
+				                     .count();
+		System.out.println("Vowel count is "+vowelCnt+" Consonant count is "+consonantCnt);
+		return this;
+	}
+	//28.
 }
