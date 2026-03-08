@@ -242,5 +242,34 @@ public class NonObjectQuestions {
 		System.out.println("Vowel count is "+vowelCnt+" Consonant count is "+consonantCnt);
 		return this;
 	}
-	//28.
+	//28. Find Anagrams in a list
+	public NonObjectQuestions anagramsInList(List<String> list) {
+		List<String> anagrams= list.stream()
+		                            .collect(Collectors.groupingBy(AnagramHelper::sortedString,Collectors.counting()))
+		                            .entrySet()
+		                            .stream()
+		                            .filter(entry->entry.getValue()>1)
+		                            .map(Map.Entry::getKey)
+		                            .collect(Collectors.toList());
+		System.out.println(anagrams.toString());
+		return this;
+	}
+	//29. Find sum of digits of a number
+	public NonObjectQuestions sumOfDigitsOfaNumber(int num) {
+		long ans = String.valueOf(num)
+				        .chars()
+				        .mapToLong(c->(long)c)
+				        .sum();
+		System.out.println("Sum of digits is : "+ans);
+		return this;
+	}
+	//30. Group words By their length
+	public NonObjectQuestions groupWordsBytheirLength(List<String> list) {
+		 list.stream()
+		     .collect(Collectors.groupingBy(String::length))
+			 .entrySet()
+			 .stream()
+			 .forEach(entry->System.out.println(entry.getValue().toString()));
+		 return this;
+	}
 }
