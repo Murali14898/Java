@@ -244,14 +244,13 @@ public class NonObjectQuestions {
 	}
 	//28. Find Anagrams in a list
 	public NonObjectQuestions anagramsInList(List<String> list) {
-		List<String> anagrams= list.stream()
-		                            .collect(Collectors.groupingBy(AnagramHelper::sortedString,Collectors.counting()))
+		 list.stream()
+		                            .collect(Collectors.groupingBy(AnagramHelper::sortedString))
 		                            .entrySet()
 		                            .stream()
-		                            .filter(entry->entry.getValue()>1)
-		                            .map(Map.Entry::getKey)
-		                            .collect(Collectors.toList());
-		System.out.println(anagrams.toString());
+		                            .filter(entry->entry.getValue().size()>1)
+		                            .forEach(entry->System.out.println(entry.getValue().toString()));
+		
 		return this;
 	}
 	//29. Find sum of digits of a number

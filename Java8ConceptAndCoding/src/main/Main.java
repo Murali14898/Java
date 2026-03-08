@@ -21,8 +21,7 @@ public class Main {
 //				                                            .sortAMapByValue(map)
 //				                                            .removeDuplicates(list)
 //				                                            .primeNumbersInAList(list)
-		                                                    .anagramsInList(list1)
-		                                                    .sumOfDigitsOfaNumber(456);
+		                                                    .anagramsInList(list1);
 
 	}
 
