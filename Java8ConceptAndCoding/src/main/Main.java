@@ -11,7 +11,12 @@ public class Main {
 		String s = "ABCBAD";
 		int[] arr = {7,4,3,11,10,2};
 		Map<String,Integer> map = Map.of("Ram",89,"Raj",76,"Raju",70,"Rahim",92);
-		NonObjectQuestions nonObj = new NonObjectQuestions().reverseAList(list)
+		List<Employee> employeeList = List.of(new Employee(101,"Murali",50000,"Billing"),
+				                              new Employee(102,"Raushan",55000,"Billing"),
+				                              new Employee(103,"Ajit",63000,"MainFrame"),
+				                              new Employee(104,"Chandan",85000,"Fsdgtl"),
+				                              new Employee(105,"Abhishek",76000,"Fsdgtl"));
+//		NonObjectQuestions nonObj = new NonObjectQuestions().reverseAList(list)
 //				                                            .firstNonRepeatCharacter(s)
 //				                                            .findDuplicatesInAList(list)
 //				                                            .convertToUpperCase(list1)
@@ -21,7 +26,10 @@ public class Main {
 //				                                            .sortAMapByValue(map)
 //				                                            .removeDuplicates(list)
 //				                                            .primeNumbersInAList(list)
-		                                                    .anagramsInList(list1);
+//		                                                    .anagramsInList(list1);
+		new ObjectBasedQuestion().getNameOfAllEmployee(employeeList)
+		                         .sortEmployeeBytheirSalary(employeeList)
+		                         .heighestSalaryEmployee(employeeList);
 
 	}
 
