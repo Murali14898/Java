@@ -15,7 +15,9 @@ public class Main {
 				                              new Employee(102,"Raushan",55000,"Billing"),
 				                              new Employee(103,"Ajit",63000,"MainFrame"),
 				                              new Employee(104,"Chandan",85000,"Fsdgtl"),
-				                              new Employee(105,"Abhishek",76000,"Fsdgtl"));
+				                              new Employee(105,"Abhishek",76000,"Fsdgtl"),
+				                              new Employee(105,"Abhishek",76000,"Fsdgtl"),
+				                              new Employee(106,"Swastik",92000,"MainFrame"));
 //		NonObjectQuestions nonObj = new NonObjectQuestions().reverseAList(list)
 //				                                            .firstNonRepeatCharacter(s)
 //				                                            .findDuplicatesInAList(list)
@@ -27,9 +29,15 @@ public class Main {
 //				                                            .removeDuplicates(list)
 //				                                            .primeNumbersInAList(list)
 //		                                                    .anagramsInList(list1);
-		new ObjectBasedQuestion().getNameOfAllEmployee(employeeList)
-		                         .sortEmployeeBytheirSalary(employeeList)
-		                         .heighestSalaryEmployee(employeeList);
+		new ObjectBasedQuestion()
+//		                         .getNameOfAllEmployee(employeeList)
+//		                         .sortEmployeeBytheirSalary(employeeList)
+//		                         .heighestSalaryEmployee(employeeList)
+//		                         .heighestSalryPerDepartmet(employeeList)
+//		                         .DuplicateEmployeeBasedOnName(employeeList)
+//		                         .heighestAverageSalryDepartmet(employeeList)
+//		                         .nthHeighestSalaryEmployee(employeeList, 3)
+		                         .employeeSalaryStatics(employeeList);
 
 	}
 

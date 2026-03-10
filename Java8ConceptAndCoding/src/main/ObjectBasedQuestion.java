@@ -1,8 +1,10 @@
 package main;
 
 import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ObjectBasedQuestion {
@@ -104,6 +106,95 @@ public class ObjectBasedQuestion {
 		System.out.println(top3HighSalaryEmployee.get(0).getName());
 		System.out.println(top3HighSalaryEmployee.get(1).getName());
 		System.out.println(top3HighSalaryEmployee.get(2).getName());
+		return this;
+	}
+	//13. Highest salary per department
+	public ObjectBasedQuestion heighestSalryPerDepartmet(List<Employee> list) {
+		//method 1
+		list.stream().collect(Collectors.groupingBy(emp->emp.getDepartment()))
+		             .entrySet()
+		             .stream()
+		             .forEach(entry->System.out.println("department "+entry.getKey()+
+		              " heighest salary is "+entry.getValue().stream().max(Comparator.comparing(Employee::getSalary)).get().getSalary()));
+		//method 2
+		Map<String, Optional<Employee>> map =
+				list.stream()
+				        .collect(Collectors.groupingBy(
+				        Employee::getDepartment,
+				        Collectors.maxBy(Comparator.comparing(Employee::getSalary))
+				));
+		return this;
+	}
+	//14. Average salary per department
+	public ObjectBasedQuestion averageSalryPerDepartmet(List<Employee> list) {
+		
+		//method 1
+		Map<String,Double> map = list.stream()
+				                     .collect(Collectors.groupingBy(Employee::getDepartment,
+				                    		                        Collectors.averagingDouble(Employee::getSalary)));
+		System.out.println(map.toString());
+		return this;
+	}
+	//15. Find duplicate employee names
+	public ObjectBasedQuestion duplicateEmployeeNames(List<Employee> list) {
+		list.stream().collect(Collectors.groupingBy(Employee::getName))
+		             .entrySet()
+		             .stream()
+		             .filter(entry->entry.getValue().size()>1)
+		             .forEach(entry->System.out.println(entry.getValue().get(0).getName()));
+		return this;
+	}
+	//16. Find department with highest average salary
+	public ObjectBasedQuestion heighestAverageSalryDepartmet(List<Employee> list) {
+		Map.Entry<String,Double> ans = list.stream()
+				                           .collect(Collectors.groupingBy(Employee::getDepartment, 
+				                        		                          Collectors.averagingDouble(Employee::getSalary)))
+		                                   .entrySet()
+		                                   .stream()
+		                                   .max(Map.Entry.comparingByValue())
+		                                   .get();
+		System.out.println("Department "+ans.getKey()+" Heighest average salary "+ans.getValue());
+		return this;
+	}
+	//17. Find the nth highest salary
+	public ObjectBasedQuestion nthHeighestSalaryEmployee(List<Employee> list,int n) {
+		Employee emp = list.stream()
+				           .sorted(Comparator.comparing(Employee::getSalary).reversed())
+				           .skip(n-1)
+				           .findFirst()
+				           .get();
+		System.out.println(emp.getName()+" having nth heighest salary");
+		return this;
+	}
+	//18. Get salary statistics
+	public ObjectBasedQuestion employeeSalaryStatics(List<Employee> list) {
+		DoubleSummaryStatistics ds = list.stream()
+				                         .collect((Collectors.summarizingDouble(Employee::getSalary)));
+		System.out.println(ds.toString());
+		return this;
+	}
+	//19. Convert List<Employee> to Map<id, name>
+	public ObjectBasedQuestion listOfEmplyeeToMap(List<Employee> list) {
+		Map<Integer, String> map =
+		        list.stream()
+		        .collect(Collectors.toMap(
+		                Employee::getId,
+		                Employee::getName
+		        ));
+		return this;
+	}
+	//20. Find the department having the most employees
+	public ObjectBasedQuestion departmentWithHeighestEmployee(List<Employee> list) {
+		String dept = list.stream()
+		        .collect(Collectors.groupingBy(
+		                Employee::getDepartment,
+		                Collectors.counting()
+		        ))
+		        .entrySet()
+		        .stream()
+		        .max(Map.Entry.comparingByValue())
+		        .get()
+		        .getKey();
 		return this;
 	}
 }
