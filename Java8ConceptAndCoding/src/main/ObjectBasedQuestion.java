@@ -197,4 +197,89 @@ public class ObjectBasedQuestion {
 		        .getKey();
 		return this;
 	}
+	//21. Find duplicate employees based on name and department
+	public ObjectBasedQuestion duplicateEmployeeBasedonNameAndDept(List<Employee> list) {
+		list.stream().collect(Collectors.groupingBy(emp->emp.getName()+"-"+emp.getDepartment()))
+		             .entrySet()
+		             .stream()
+		             .filter(entry->entry.getValue().size()>1)
+		             .forEach(entry->System.out.println(entry.getKey()));
+		return this;
+	}
+	//22. Find employees whose salary is greater than the average salary
+    public ObjectBasedQuestion employeeSalaryGreaterAvg(List<Employee> list) {
+    	double avg = list.stream().mapToDouble(Employee::getSalary).average().orElse(0);
+		list.stream().filter(emp->emp.getSalary()>avg)
+		             .forEach(emp->System.out.println(emp.getName() +" with salary "+emp.getSalary()));
+		return this;
+	}
+    //23. Find the department with the highest total salary
+    public ObjectBasedQuestion departmentWithHeighestTotalSalary(List<Employee> list) {
+    	Map.Entry<String,Double> ans =list.stream()
+    			                          .collect(Collectors.groupingBy
+    			                        		              (Employee::getDepartment,
+    			                        		            		  Collectors.summingDouble(Employee::getSalary)))
+    	                                  .entrySet()
+    	                                  .stream()
+    	                                  .max(Map.Entry.comparingByValue())
+    	                                  .orElse(null);
+    	System.out.println(ans.getKey()+" having heighest total salary "+ans.getValue());
+    	return this;
+    }
+    //24. Find the department with the highest average salary
+    public ObjectBasedQuestion departmentWithHeighestAvgSalary(List<Employee> list) {
+    	Map.Entry<String,Double> ans =list.stream()
+    			                          .collect(Collectors.groupingBy
+    			                        		              (Employee::getDepartment,
+    			                        		            		  Collectors.averagingDouble(Employee::getSalary)))
+    	                                  .entrySet()
+    	                                  .stream()
+    	                                  .max(Map.Entry.comparingByValue())
+    	                                  .orElse(null);
+    	System.out.println(ans.getKey()+" having heighest total salary "+ans.getValue());
+    	return this;
+    }
+    //25. Find employees earning the same salary
+    public ObjectBasedQuestion employeeWithSameSalary(List<Employee> list) {
+    	list.stream().collect(Collectors.groupingBy(emp->emp.getSalary()))
+    	             .entrySet()
+    	             .stream()
+    	             .filter(entry->entry.getValue().size()>1)
+    	             .forEach(entry->entry.getValue().stream().forEach(emp->System.out.print(emp.getName()+" ")));
+    	return this;
+    }
+    //26. Find the second highest salary in each department
+    public ObjectBasedQuestion departmentsSecondHeighestSalry(List<Employee> list) {
+    	list.stream().collect(Collectors.groupingBy(Employee::getDepartment))
+    	             .entrySet()
+    	             .stream()
+    	             .forEach(entry->{
+    	            	 System.out.print(entry.getKey()+"----");
+    	            	 double secondHeighestSalary = entry.getValue().stream()
+    	            			                  .sorted(Comparator.comparing(Employee::getSalary).reversed())
+    	            	                          .skip(1)
+    	            	                          .findFirst()
+    	            	                          .get().getSalary();
+    	            	 System.out.println(secondHeighestSalary);
+    	             });
+    	//method2
+    	Map<String, Optional<Double>> secondHighestSalaryByDept =
+    	        list.stream()
+    	                 .collect(Collectors.groupingBy(
+    	                         Employee::getDepartment,
+    	                         Collectors.mapping(Employee::getSalary,
+    	                                 Collectors.collectingAndThen(
+    	                                         Collectors.toList(),
+    	                                         empList -> empList.stream()
+    	                                                 .distinct()
+    	                                                 .sorted(Comparator.reverseOrder())
+    	                                                 .skip(1)
+    	                                                 .findFirst()
+    	                                 ))
+    	                 ));
+
+    	secondHighestSalaryByDept.forEach((dept, salary) ->
+    	        System.out.println(dept + " -> " + salary.orElse(null)));
+    	return this;
+    }
 }

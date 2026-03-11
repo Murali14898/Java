@@ -17,7 +17,8 @@ public class Main {
 				                              new Employee(104,"Chandan",85000,"Fsdgtl"),
 				                              new Employee(105,"Abhishek",76000,"Fsdgtl"),
 				                              new Employee(105,"Abhishek",76000,"Fsdgtl"),
-				                              new Employee(106,"Swastik",92000,"MainFrame"));
+				                              new Employee(106,"Swastik",92000,"MainFrame"),
+				                              new Employee(107,"Ayush",65000,"Billing"));
 //		NonObjectQuestions nonObj = new NonObjectQuestions().reverseAList(list)
 //				                                            .firstNonRepeatCharacter(s)
 //				                                            .findDuplicatesInAList(list)
@@ -37,7 +38,8 @@ public class Main {
 //		                         .DuplicateEmployeeBasedOnName(employeeList)
 //		                         .heighestAverageSalryDepartmet(employeeList)
 //		                         .nthHeighestSalaryEmployee(employeeList, 3)
-		                         .employeeSalaryStatics(employeeList);
+//		                         .employeeSalaryStatics(employeeList)
+		                         .departmentsSecondHeighestSalry(employeeList);
 
 	}
 
