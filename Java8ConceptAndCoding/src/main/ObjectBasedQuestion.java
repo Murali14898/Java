@@ -282,4 +282,31 @@ public class ObjectBasedQuestion {
     	        System.out.println(dept + " -> " + salary.orElse(null)));
     	return this;
     }
+    //27 Convert List<Employee> to Map<Department, HighestPaidEmployee>
+    public ObjectBasedQuestion convertListToMap(List<Employee> list) {
+    	Map<String,String> map = list.stream()
+    			                 .collect(Collectors.groupingBy(Employee::getDepartment))
+    			                 .entrySet()
+    			                 .stream()
+    			                 .collect(Collectors.toMap(Map.Entry::getKey,
+    			                		                   entry->entry.getValue()
+    			                		                               .stream()
+    			                		                               .max(Comparator.comparing(Employee::getSalary))
+    			                		                               .get().getName()));
+    	System.out.println(map.toString());
+    	return this;
+    }
+    //28. Find employees who earn more than their department average
+    public ObjectBasedQuestion employeeEarningMoreThandeptAvg(List<Employee> list) {
+    	Map<String,Double> deptWiseAvg = list.stream()
+    			                             .collect(
+    			                            		 Collectors.groupingBy(
+    			                            				 Employee::getDepartment,
+    			                                             Collectors.averagingDouble(Employee::getSalary)));
+    	List<Employee> moreThanAvg = list.stream()
+    			                         .filter(emp->deptWiseAvg.get(emp.getDepartment())<emp.getSalary())
+    			                         .collect(Collectors.toList());
+    	System.out.println(moreThanAvg.toString());
+    	return this;
+    }
 }
