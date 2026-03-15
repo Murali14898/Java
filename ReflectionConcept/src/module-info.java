@@ -25,7 +25,18 @@
            * ways to get it Class object ?
                1. using .class 
                2. using obj.getClass()
-               3. using Class.forName("classname/fullfledged class name")
+               3. using Class.forName("class name /full fledged class name")
+               
+           * what are the difference between these three ?  
+              | Feature               | `.class` | `getClass()` | `Class.forName()` |
+              | --------------------- | -------- | ------------ | ----------------- |
+              | Known at compile time | Yes      | No           | No                |
+              | Requires object       | No       | Yes          | No                |
+              | Dynamic loading       | No       | No           | Yes               |
+              | Performance           | Fastest  | Fast         | Slower            |
+              | Exception             | No       | No           | Yes               |
+
+            
 */
 module ReflectionConcept {
 }
