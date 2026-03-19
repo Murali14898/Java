@@ -1,0 +1,8 @@
+Java Virtual machine managed by the underline OS , where JVM is running on, has their own Threads.
+Such threads are refer to OS level threads.
+OS level threads are often heavy and it may requires 1 to 2 mb for stack space for each thread
+In case you create 1000 threads you have to allocate 1 to 2mb stack space for each thread.
+So you need lot of memory.
+For this java has Project LOOM - fiber
+The intent of this thread is to create light weight thread.
+This light weight thread are not managed by OS level thread rather by the JVM.
